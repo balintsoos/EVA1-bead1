@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include <QTimer>
 
 #include "coordinate.h"
 #include "gridpushbutton.h"
@@ -19,11 +18,14 @@ public:
     ~TableWidget();
 
 private slots: // eseménykezelők
-    void startColorChange(); // időzítő indítása
+    void clickOnField();
     void resizeGrid(); // rács méretezése
-    void changeColors(); // időzített átszínezés
+
+    void addQueen(Coordinate coordinate);
+    void removeQueen(Coordinate coordinate);
 
 private:
+    int stepCounter;
     QGridLayout* _gridLayout;
     QVBoxLayout* _vBoxLayout;
 
@@ -33,7 +35,8 @@ private:
     QPushButton* _quitButton; // kilépés gomb
 
     QVector<GridPushButton*> _buttonGrid; // gombrács
-    QMap<QTimer*, Coordinate> _timers; // időzítők (koordinátákhoz társítva)
+
+    QVector<Coordinate> _queens;
 };
 
 #endif // TABLEWIDGET_H

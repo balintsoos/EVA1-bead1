@@ -1,7 +1,4 @@
 #include "tablewidget.h"
-
-#include <QTime>
-#include <QTimerEvent>
 #include <QApplication>
 
 TableWidget::TableWidget(QWidget *parent)
@@ -26,9 +23,6 @@ TableWidget::TableWidget(QWidget *parent)
     _vBoxLayout->addLayout(_gridLayout);
 
     setLayout(_vBoxLayout);
-
-    qsrand(QTime::currentTime().msec());
-       // véletlenszám generátor indítása
 }
 
 TableWidget::~TableWidget()
@@ -36,12 +30,35 @@ TableWidget::~TableWidget()
     delete _gridSizeDialog;
 }
 
-void TableWidget::changeColors()
+void TableWidget::clickOnField()
 {
-    QString styleSheet = "QPushButton { background-color: red; }"; // stílus beállítása
+    // szükségünk van a küldő gomb koordinátájára
+    GridPushButton *button = qobject_cast<GridPushButton*>(sender());
+    Coordinate coordinate = button->coordinate();
+    bool isExist = false;
 
-    // megkeressük, melyik koordinátán kell módosítani a színeket
-    Coordinate coordinate = _timers[qobject_cast<QTimer*>(sender())];
+    QMutableVectorIterator<Coordinate> i(_queens);
+    while(i.hasNext())
+    {
+        Coordinate current = i.next();
+        if(current.x() == coordinate.x() && current.y() == coordinate.y())
+        {
+            removeQueen(coordinate);
+            i.remove();
+            isExist = true;
+        }
+    }
+
+    if(!isExist)
+    {
+        addQueen(coordinate);
+        _queens.append(coordinate);
+    }
+}
+
+void TableWidget::addQueen(Coordinate coordinate)
+{
+    QString styleSheet = "QPushButton { background-color: red; }";
 
     // megkeressük az átszínezendő gombokat
     foreach(GridPushButton* buttonToChange, _buttonGrid)
@@ -56,31 +73,14 @@ void TableWidget::changeColors()
     }
 }
 
-void TableWidget::startColorChange()
+void TableWidget::removeQueen(Coordinate coordinate)
 {
-    // szükségünk van a küldő gomb koordinátájára
-    GridPushButton *button = qobject_cast<GridPushButton*>(sender());
-    Coordinate coordinate = button->coordinate();
-
-    // létrehozunk egy új időzítőt, amit azonnal el is indítunk
-    QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(changeColors()));
-    timer->start(1000);
-
-    // és elmentünk a megadott koordinátával
-    _timers.insert(timer, coordinate);
+    //TODO
 }
 
 void TableWidget::resizeGrid()
 {
-    // előbb le kell állítanunk az összes időzítőt
-    foreach(QTimer* timer, _timers.keys())
-    {
-        timer->stop();
-        _timers.remove(timer); // töröljük a tömbből
-        delete timer; // töröljük az objektumot
-    }
-
+    stepCounter = 0;
 
     // majd törölnünk kell az összes gombot
     foreach(GridPushButton* button, _buttonGrid)
@@ -96,7 +96,7 @@ void TableWidget::resizeGrid()
             GridPushButton* button = new GridPushButton(Coordinate(i, j)); // gomb létrehozása
             _gridLayout->addWidget(button, i, j); // gomb felvétele az elrendezésbe
             _buttonGrid.append(button); // elmentés a rácsba
-            QObject::connect(button, SIGNAL(clicked()), this, SLOT(startColorChange())); // eseménykezelő kapcsolat létrehozása
+            QObject::connect(button, SIGNAL(clicked()), this, SLOT(clickOnField())); // eseménykezelő kapcsolat létrehozása
         }
     }
 }
