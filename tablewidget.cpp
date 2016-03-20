@@ -10,20 +10,22 @@ TableWidget::TableWidget(QWidget *parent)
     setWindowTitle(trUtf8("Queens Game"));
 
     _gridSizeDialog = new GridSizeDialog();
-
-    _gridLayout = new QGridLayout();
-    _vBoxLayout = new QVBoxLayout(this);
+    connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
 
     _sizeButton = new QPushButton(trUtf8("New Game"));
-    _quitButton = new QPushButton(trUtf8("Quit"));
+    connect(_sizeButton, SIGNAL(clicked()), _gridSizeDialog, SLOT(exec())); // méretező ablak megjelenítése gombnyomásra
 
+    _quitButton = new QPushButton(trUtf8("Quit"));
+    connect(_quitButton, SIGNAL(clicked()), QApplication::instance(), SLOT(quit()));
+
+    _vBoxLayout = new QVBoxLayout();
     _vBoxLayout->addWidget(_sizeButton);
     _vBoxLayout->addWidget(_quitButton);
+
+    _gridLayout = new QGridLayout();
     _vBoxLayout->addLayout(_gridLayout);
 
-    connect(_sizeButton, SIGNAL(clicked()), _gridSizeDialog, SLOT(exec())); // méretező ablak megjelenítése gombnyomásra
-    connect(_quitButton, SIGNAL(clicked()), QApplication::instance(), SLOT(quit()));
-    connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
+    setLayout(_vBoxLayout);
 
     qsrand(QTime::currentTime().msec());
        // véletlenszám generátor indítása
@@ -36,7 +38,7 @@ TableWidget::~TableWidget()
 
 void TableWidget::changeColors()
 {
-    QString styleSheet = "QPushButton { background-color: red"; // stílus beállítása
+    QString styleSheet = "QPushButton { background-color: red; }"; // stílus beállítása
 
     // megkeressük, melyik koordinátán kell módosítani a színeket
     Coordinate coordinate = _timers[qobject_cast<QTimer*>(sender())];
@@ -71,6 +73,15 @@ void TableWidget::startColorChange()
 
 void TableWidget::resizeGrid()
 {
+    // előbb le kell állítanunk az összes időzítőt
+    foreach(QTimer* timer, _timers.keys())
+    {
+        timer->stop();
+        _timers.remove(timer); // töröljük a tömbből
+        delete timer; // töröljük az objektumot
+    }
+
+
     // majd törölnünk kell az összes gombot
     foreach(GridPushButton* button, _buttonGrid)
     {
@@ -85,7 +96,7 @@ void TableWidget::resizeGrid()
             GridPushButton* button = new GridPushButton(Coordinate(i, j)); // gomb létrehozása
             _gridLayout->addWidget(button, i, j); // gomb felvétele az elrendezésbe
             _buttonGrid.append(button); // elmentés a rácsba
-            QObject::connect(button, SIGNAL(clicked()), this, SLOT(changeColors())); // eseménykezelő kapcsolat létrehozása
+            QObject::connect(button, SIGNAL(clicked()), this, SLOT(startColorChange())); // eseménykezelő kapcsolat létrehozása
         }
     }
 }
