@@ -32,7 +32,8 @@ TableWidget::~TableWidget()
 
 void TableWidget::clickOnField()
 {
-    // szükségünk van a küldő gomb koordinátájára
+    ++stepCounter;
+
     GridPushButton *button = qobject_cast<GridPushButton*>(sender());
     Coordinate coordinate = button->coordinate();
     bool isExist = false;
@@ -58,31 +59,49 @@ void TableWidget::clickOnField()
 
 void TableWidget::addQueen(Coordinate coordinate)
 {
-    QString styleSheet = "QPushButton { background-color: red; }";
+    ++stepCounter;
 
-    // megkeressük az átszínezendő gombokat
     foreach(GridPushButton* buttonToChange, _buttonGrid)
     {
-       if (buttonToChange->coordinate().x() == coordinate.x() ||
-           buttonToChange->coordinate().y() == coordinate.y())
+       if(buttonToChange->coordinate().x() == coordinate.x() ||
+          buttonToChange->coordinate().y() == coordinate.y() ||
+          qAbs(coordinate.x() - buttonToChange->coordinate().x()) ==
+          qAbs(coordinate.y() - buttonToChange->coordinate().y()))
        {
-           // az adott sorban és oszlopban
-           buttonToChange->setStyleSheet((styleSheet));
-           // lecseréljük az összes gomb megjelenését
+           buttonToChange->disable();
+       }
+
+       if(buttonToChange->coordinate().x() == coordinate.x() &&
+          buttonToChange->coordinate().y() == coordinate.y())
+       {
+           buttonToChange->enable();
+           buttonToChange->setStyleSheet("background-color: yellow");
+
        }
     }
 }
 
 void TableWidget::removeQueen(Coordinate coordinate)
 {
-    //TODO
+    ++stepCounter;
+
+    foreach(GridPushButton* buttonToChange, _buttonGrid)
+    {
+        if(buttonToChange->coordinate().x() == coordinate.x() ||
+           buttonToChange->coordinate().y() == coordinate.y() ||
+           qAbs(coordinate.x() - buttonToChange->coordinate().x()) ==
+           qAbs(coordinate.y() - buttonToChange->coordinate().y()))
+        {
+            buttonToChange->enable();
+        }
+    }
 }
 
 void TableWidget::resizeGrid()
 {
     stepCounter = 0;
 
-    // majd törölnünk kell az összes gombot
+    // törölni kell az összes gombot
     foreach(GridPushButton* button, _buttonGrid)
     {
         _gridLayout->removeWidget(button); // levétel az elrendezésről

@@ -11,9 +11,12 @@ class GridPushButton : public QPushButton
 public:
     explicit GridPushButton(Coordinate coordinate, QWidget *parent = 0);
     Coordinate coordinate() const { return _coordinate; }
+    void enable();
+    void disable();
 
 protected:
     Coordinate _coordinate;
+    int numberOfOverlaps;
 };
 
 #endif // GRIDPUSHBUTTON_H
