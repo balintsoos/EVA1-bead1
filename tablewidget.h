@@ -23,6 +23,7 @@ private slots: // eseménykezelők
 
     void addQueen(Coordinate coordinate);
     void removeQueen(Coordinate coordinate);
+    void checkEndGame();
 
 private:
     int stepCounter;

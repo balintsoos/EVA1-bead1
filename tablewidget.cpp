@@ -53,12 +53,14 @@ void TableWidget::clickOnField()
     if(!isExist)
     {
         addQueen(coordinate);
-        _queens.append(coordinate);
     }
+
+    checkEndGame();
 }
 
 void TableWidget::addQueen(Coordinate coordinate)
 {
+    _queens.append(coordinate);
     ++stepCounter;
 
     foreach(GridPushButton* buttonToChange, _buttonGrid)
@@ -94,6 +96,14 @@ void TableWidget::removeQueen(Coordinate coordinate)
         {
             buttonToChange->enable();
         }
+    }
+}
+
+void TableWidget::checkEndGame()
+{
+    if(_queens.size() == _gridSizeDialog->gridSize())
+    {
+        resizeGrid();
     }
 }
 
