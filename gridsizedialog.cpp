@@ -10,7 +10,7 @@ GridSizeDialog::GridSizeDialog(QWidget *parent) :
 
     _label = new QLabel(trUtf8("Number of rows and colums: "));
     _spinBox = new QSpinBox();
-    _spinBox->setRange(3, 10); // az értékek 1 és 10 közöttiek lehetnek
+    _spinBox->setRange(4, 10); // az értékek 1 és 10 közöttiek lehetnek
     _spinBox->setSingleStep(1);
 
     _okButton = new QPushButton(trUtf8("OK"));

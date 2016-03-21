@@ -80,7 +80,7 @@ void TableWidget::addQueen(Coordinate coordinate)
        if(buttonToChange->coordinate().x() == coordinate.x() &&
           buttonToChange->coordinate().y() == coordinate.y())
        {
-           buttonToChange->enable();
+           buttonToChange->setEnabled(true);
            buttonToChange->setStyleSheet("background-color: yellow");
 
        }
