@@ -120,6 +120,7 @@ void TableWidget::resizeGrid()
     }
 
     _buttonGrid.clear(); // mutatók törlése
+    _queens.clear();
 
     for (int i = 0; i < _gridSizeDialog->gridSize(); ++i) {
         for (int j = 0; j < _gridSizeDialog->gridSize(); ++j){

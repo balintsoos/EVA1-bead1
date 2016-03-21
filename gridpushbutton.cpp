@@ -5,6 +5,7 @@ GridPushButton::GridPushButton(Coordinate coordinate, QWidget *parent)
 {
     _numberOfOverlaps = 0;
     setFixedSize(80, 80);
+    setStyleSheet("background-color: white");
 }
 
 void GridPushButton::enable()
