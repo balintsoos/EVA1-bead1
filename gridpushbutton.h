@@ -16,7 +16,7 @@ public:
 
 protected:
     Coordinate _coordinate;
-    int numberOfOverlaps;
+    int _numberOfOverlaps;
 };
 
 #endif // GRIDPUSHBUTTON_H

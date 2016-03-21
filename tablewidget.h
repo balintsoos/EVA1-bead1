@@ -8,6 +8,7 @@
 #include "coordinate.h"
 #include "gridpushbutton.h"
 #include "gridsizedialog.h"
+#include "stepcounter.h"
 
 class TableWidget : public QWidget
 {
@@ -26,7 +27,6 @@ private slots: // eseménykezelők
     void checkEndGame();
 
 private:
-    int stepCounter;
     QGridLayout* _gridLayout;
     QVBoxLayout* _vBoxLayout;
 
@@ -34,6 +34,7 @@ private:
 
     QPushButton* _sizeButton; // átméretező gomb
     QPushButton* _quitButton; // kilépés gomb
+    StepCounter* _stepCounter;
 
     QVector<GridPushButton*> _buttonGrid; // gombrács
 

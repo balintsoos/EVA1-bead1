@@ -15,9 +15,11 @@ TEMPLATE = app
 SOURCES += main.cpp\
         tablewidget.cpp \
     gridpushbutton.cpp \
-    gridsizedialog.cpp
+    gridsizedialog.cpp \
+    stepcounter.cpp
 
 HEADERS  += tablewidget.h \
     coordinate.h \
     gridpushbutton.h \
-    gridsizedialog.h
+    gridsizedialog.h \
+    stepcounter.h

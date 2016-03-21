@@ -3,12 +3,13 @@
 GridPushButton::GridPushButton(Coordinate coordinate, QWidget *parent)
     : _coordinate(coordinate), QPushButton(parent)
 {
-    numberOfOverlaps = 0;
+    _numberOfOverlaps = 0;
+    setFixedSize(80, 80);
 }
 
 void GridPushButton::enable()
 {
-    if(--numberOfOverlaps < 1)
+    if(--_numberOfOverlaps < 1)
     {
         setEnabled(true);
         setStyleSheet("background-color: white");
@@ -17,7 +18,7 @@ void GridPushButton::enable()
 
 void GridPushButton::disable()
 {
-    if(++numberOfOverlaps > 0)
+    if(++_numberOfOverlaps > 0)
     {
         setEnabled(false);
         setStyleSheet("background-color: red");

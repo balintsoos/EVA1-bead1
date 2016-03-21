@@ -15,9 +15,12 @@ TableWidget::TableWidget(QWidget *parent)
     _quitButton = new QPushButton(trUtf8("Quit"));
     connect(_quitButton, SIGNAL(clicked()), QApplication::instance(), SLOT(quit()));
 
+    _stepCounter = new StepCounter();
+
     _vBoxLayout = new QVBoxLayout();
     _vBoxLayout->addWidget(_sizeButton);
     _vBoxLayout->addWidget(_quitButton);
+    _vBoxLayout->addWidget(_stepCounter);
 
     _gridLayout = new QGridLayout();
     _vBoxLayout->addLayout(_gridLayout);
@@ -32,7 +35,7 @@ TableWidget::~TableWidget()
 
 void TableWidget::clickOnField()
 {
-    ++stepCounter;
+    _stepCounter->step();
 
     GridPushButton *button = qobject_cast<GridPushButton*>(sender());
     Coordinate coordinate = button->coordinate();
@@ -61,7 +64,6 @@ void TableWidget::clickOnField()
 void TableWidget::addQueen(Coordinate coordinate)
 {
     _queens.append(coordinate);
-    ++stepCounter;
 
     foreach(GridPushButton* buttonToChange, _buttonGrid)
     {
@@ -85,8 +87,6 @@ void TableWidget::addQueen(Coordinate coordinate)
 
 void TableWidget::removeQueen(Coordinate coordinate)
 {
-    ++stepCounter;
-
     foreach(GridPushButton* buttonToChange, _buttonGrid)
     {
         if(buttonToChange->coordinate().x() == coordinate.x() ||
@@ -104,12 +104,13 @@ void TableWidget::checkEndGame()
     if(_queens.size() == _gridSizeDialog->gridSize())
     {
         resizeGrid();
+        //TODO
     }
 }
 
 void TableWidget::resizeGrid()
 {
-    stepCounter = 0;
+    _stepCounter->reset();
 
     // törölni kell az összes gombot
     foreach(GridPushButton* button, _buttonGrid)
