@@ -22,3 +22,8 @@ void StepCounter::display()
 {
     setText(_message + QString::number(_steps));
 }
+
+int StepCounter::getSteps()
+{
+    return _steps;
+}

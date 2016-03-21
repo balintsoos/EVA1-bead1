@@ -9,6 +9,8 @@ TableWidget::TableWidget(QWidget *parent)
     _gridSizeDialog = new GridSizeDialog();
     connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
 
+    _endGameDialog = new EndGameDialog();
+
     _sizeButton = new QPushButton(trUtf8("New Game"));
     connect(_sizeButton, SIGNAL(clicked()), _gridSizeDialog, SLOT(exec())); // méretező ablak megjelenítése gombnyomásra
 
@@ -103,7 +105,7 @@ void TableWidget::checkEndGame()
 {
     if(_queens.size() == _gridSizeDialog->gridSize())
     {
-        _endGameDialog = new EndGameDialog();
+        _endGameDialog->setSteps(_stepCounter->getSteps());
         _endGameDialog->exec();
     }
 }

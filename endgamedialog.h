@@ -9,9 +9,15 @@ class EndGameDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit EndGameDialog(int steps, QWidget *parent = 0);
+    explicit EndGameDialog(QString message = "You won the game in ", int steps = 0, QWidget *parent = 0);
+    void setLabel(QString message);
+    void setSteps(int steps);
 
 private:
+    void updateLabel();
+
+    int _steps;
+    QString _message;
     QLabel *_label;
     QPushButton *_closeButton;
 };

@@ -11,6 +11,7 @@ public:
     void reset();
     void step();
     void display();
+    int getSteps();
 
 private:
     QString _message;
