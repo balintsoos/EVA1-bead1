@@ -10,8 +10,13 @@ TableWidget::TableWidget(QWidget *parent)
     connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
 
     _endGameDialog = new EndGameDialog();
+    connect(_endGameDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
+    connect(_endGameDialog, SIGNAL(rejected()), QApplication::instance(), SLOT(quit()));
 
-    _sizeButton = new QPushButton(trUtf8("New Game"));
+    _newGameButton = new QPushButton(trUtf8("New Game"));
+    connect(_newGameButton, SIGNAL(clicked()), this, SLOT(resizeGrid()));
+
+    _sizeButton = new QPushButton(trUtf8("Settings"));
     connect(_sizeButton, SIGNAL(clicked()), _gridSizeDialog, SLOT(exec())); // méretező ablak megjelenítése gombnyomásra
 
     _quitButton = new QPushButton(trUtf8("Quit"));
@@ -20,6 +25,7 @@ TableWidget::TableWidget(QWidget *parent)
     _stepCounter = new StepCounter();
 
     _vBoxLayout = new QVBoxLayout();
+    _vBoxLayout->addWidget(_newGameButton);
     _vBoxLayout->addWidget(_sizeButton);
     _vBoxLayout->addWidget(_quitButton);
     _vBoxLayout->addWidget(_stepCounter);

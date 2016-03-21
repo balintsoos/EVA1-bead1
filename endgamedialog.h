@@ -19,7 +19,8 @@ private:
     int _steps;
     QString _message;
     QLabel *_label;
-    QPushButton *_closeButton;
+    QPushButton *_newGameButton;
+    QPushButton *_quitButton;
 };
 
 #endif // ENDGAMEDIALOG_H

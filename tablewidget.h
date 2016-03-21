@@ -34,8 +34,10 @@ private:
     GridSizeDialog* _gridSizeDialog; // méretbeállító ablak
     EndGameDialog* _endGameDialog;
 
+    QPushButton* _newGameButton;
     QPushButton* _sizeButton; // átméretező gomb
     QPushButton* _quitButton; // kilépés gomb
+
     StepCounter* _stepCounter;
 
     QVector<GridPushButton*> _buttonGrid; // gombrács
