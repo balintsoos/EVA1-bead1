@@ -13,9 +13,9 @@ GridSizeDialog::GridSizeDialog(QWidget *parent) :
     _spinBox->setSingleStep(1);
 
     _okButton = new QPushButton(trUtf8("OK"));
-    _okButton->setFixedSize(75, 23); // a gombok mérete rögzített
+    _okButton->setFixedSize(75, 25); // a gombok mérete rögzített
     _cancelButton = new QPushButton(trUtf8("Cancel"));
-    _cancelButton->setFixedSize(75, 23);
+    _cancelButton->setFixedSize(75, 25);
 
     connect(_okButton, SIGNAL(clicked()), this, SLOT(accept())); // elfogadás állapota
     connect(_cancelButton, SIGNAL(clicked()), this, SLOT(reject())); // elvetés állapota

@@ -11,9 +11,9 @@ EndGameDialog::EndGameDialog(QString message, int steps, QWidget *parent) :
     updateLabel();
 
     _newGameButton = new QPushButton(trUtf8("New Game"));
-    _newGameButton->setFixedSize(75, 23); // a gombok mérete rögzített
+    _newGameButton->setFixedSize(100, 25); // a gombok mérete rögzített
     _quitButton = new QPushButton(trUtf8("Quit"));
-    _quitButton->setFixedSize(75, 23);
+    _quitButton->setFixedSize(75, 25);
 
     connect(_newGameButton, SIGNAL(clicked()), this, SLOT(accept())); // elfogadás állapota
     connect(_quitButton, SIGNAL(clicked()), this, SLOT(reject())); // elvetés állapota
