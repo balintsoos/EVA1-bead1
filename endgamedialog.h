@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QLabel>
+#include <QTimer>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -14,18 +15,18 @@ public:
     explicit EndGameDialog(QString message = "You won the game in ", int steps = 0, QWidget *parent = 0);
     void setLabel(QString message);
     void setSteps(int steps);
+    void start();
 
 private:
     void updateLabel();
-
-    QHBoxLayout *upperLayout;
-    QVBoxLayout *mainLayout;
 
     int _steps;
     QString _message;
     QLabel *_label;
     QPushButton *_newGameButton;
     QPushButton *_quitButton;
+
+    QTimer *_timer;
 };
 
 #endif // ENDGAMEDIALOG_H

@@ -3,7 +3,7 @@
 EndGameDialog::EndGameDialog(QString message, int steps, QWidget *parent) :
     _message(message), _steps(steps), QDialog(parent)
 {
-    setFixedSize(300,100);
+    setFixedSize(300,120);
     setWindowTitle(trUtf8("You Won!"));
     setModal(true);
 
@@ -18,8 +18,14 @@ EndGameDialog::EndGameDialog(QString message, int steps, QWidget *parent) :
     connect(_newGameButton, SIGNAL(clicked()), this, SLOT(accept())); // elfogadás állapota
     connect(_quitButton, SIGNAL(clicked()), this, SLOT(reject())); // elvetés állapota
 
-    QHBoxLayout *upperLayout = new QHBoxLayout();
-    upperLayout->addWidget(_label);
+    // timer
+    _timer = new QTimer(this);
+    connect(_timer, SIGNAL(timeout()), this, SLOT(accept()));
+    QLabel *tip = new QLabel("(New game starts after 10 seconds)");
+
+    QVBoxLayout *upperLayout = new QVBoxLayout();
+    upperLayout->addWidget(_label, 0, Qt::AlignHCenter);
+    upperLayout->addWidget(tip, 0, Qt::AlignHCenter);
 
     QHBoxLayout *lowerLayout = new QHBoxLayout();
     lowerLayout->addWidget(_newGameButton);
@@ -47,4 +53,10 @@ void EndGameDialog::setSteps(int steps)
 void EndGameDialog::updateLabel()
 {
     _label->setText(_message + QString::number(_steps) + " steps");
+}
+
+void EndGameDialog::start()
+{
+    _timer->start(10000);
+    exec();
 }

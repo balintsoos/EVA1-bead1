@@ -114,7 +114,7 @@ void TableWidget::checkEndGame()
     if(_queens.size() == _gridSize)
     {
         _endGameDialog->setSteps(_stepCounter->getSteps());
-        _endGameDialog->exec();
+        _endGameDialog->start();
     }
 }
 
