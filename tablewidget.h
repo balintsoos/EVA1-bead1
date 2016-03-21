@@ -22,12 +22,15 @@ public:
 private slots: // eseménykezelők
     void clickOnField();
     void resizeGrid(); // rács méretezése
+    void setGridSize();
 
     void addQueen(Coordinate coordinate);
     void removeQueen(Coordinate coordinate);
     void checkEndGame();
 
 private:
+    int _gridSize;
+
     QGridLayout* _gridLayout;
     QVBoxLayout* _vBoxLayout;
 

@@ -13,7 +13,7 @@ class GridSizeDialog : public QDialog
     Q_OBJECT
 public:
     explicit GridSizeDialog(QWidget *parent = 0);
-    int gridSize() { return _spinBox->value(); }
+    int getGridSize() { return _spinBox->value(); }
 
 private:
     QHBoxLayout *upperLayout;

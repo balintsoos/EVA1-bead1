@@ -6,8 +6,9 @@ TableWidget::TableWidget(QWidget *parent)
 {
     setWindowTitle(trUtf8("Queens Game"));
 
+    _gridSize = 4;
     _gridSizeDialog = new GridSizeDialog();
-    connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
+    connect(_gridSizeDialog, SIGNAL(accepted()), this, SLOT(setGridSize())); // átméretezés a dialógus elfogadására
 
     _endGameDialog = new EndGameDialog();
     connect(_endGameDialog, SIGNAL(accepted()), this, SLOT(resizeGrid())); // átméretezés a dialógus elfogadására
@@ -39,6 +40,7 @@ TableWidget::TableWidget(QWidget *parent)
 TableWidget::~TableWidget()
 {
     delete _gridSizeDialog;
+    delete _endGameDialog;
 }
 
 void TableWidget::clickOnField()
@@ -109,11 +111,17 @@ void TableWidget::removeQueen(Coordinate coordinate)
 
 void TableWidget::checkEndGame()
 {
-    if(_queens.size() == _gridSizeDialog->gridSize())
+    if(_queens.size() == _gridSize)
     {
         _endGameDialog->setSteps(_stepCounter->getSteps());
         _endGameDialog->exec();
     }
+}
+
+void TableWidget::setGridSize()
+{
+   _gridSize = _gridSizeDialog->getGridSize();
+   resizeGrid();
 }
 
 void TableWidget::resizeGrid()
@@ -130,8 +138,8 @@ void TableWidget::resizeGrid()
     _buttonGrid.clear(); // mutatók törlése
     _queens.clear();
 
-    for (int i = 0; i < _gridSizeDialog->gridSize(); ++i) {
-        for (int j = 0; j < _gridSizeDialog->gridSize(); ++j){
+    for (int i = 0; i < _gridSize; ++i) {
+        for (int j = 0; j < _gridSize; ++j){
             GridPushButton* button = new GridPushButton(Coordinate(i, j)); // gomb létrehozása
             _gridLayout->addWidget(button, i, j); // gomb felvétele az elrendezésbe
             _buttonGrid.append(button); // elmentés a rácsba
