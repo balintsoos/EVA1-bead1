@@ -16,10 +16,12 @@ SOURCES += main.cpp\
         tablewidget.cpp \
     gridpushbutton.cpp \
     gridsizedialog.cpp \
-    stepcounter.cpp
+    stepcounter.cpp \
+    endgamedialog.cpp
 
 HEADERS  += tablewidget.h \
     coordinate.h \
     gridpushbutton.h \
     gridsizedialog.h \
-    stepcounter.h
+    stepcounter.h \
+    endgamedialog.h

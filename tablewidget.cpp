@@ -103,8 +103,8 @@ void TableWidget::checkEndGame()
 {
     if(_queens.size() == _gridSizeDialog->gridSize())
     {
-        resizeGrid();
-        //TODO
+        _endGameDialog = new EndGameDialog();
+        _endGameDialog->exec();
     }
 }
 

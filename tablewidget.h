@@ -8,6 +8,7 @@
 #include "coordinate.h"
 #include "gridpushbutton.h"
 #include "gridsizedialog.h"
+#include "endgamedialog.h"
 #include "stepcounter.h"
 
 class TableWidget : public QWidget
@@ -31,6 +32,7 @@ private:
     QVBoxLayout* _vBoxLayout;
 
     GridSizeDialog* _gridSizeDialog; // méretbeállító ablak
+    EndGameDialog* _endGameDialog;
 
     QPushButton* _sizeButton; // átméretező gomb
     QPushButton* _quitButton; // kilépés gomb
