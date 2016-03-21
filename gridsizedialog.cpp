@@ -1,5 +1,4 @@
 #include "gridsizedialog.h"
-#include <QHBoxLayout>
 
 GridSizeDialog::GridSizeDialog(QWidget *parent) :
     QDialog(parent)

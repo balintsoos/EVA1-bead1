@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 class GridSizeDialog : public QDialog
 {
@@ -14,6 +16,9 @@ public:
     int gridSize() { return _spinBox->value(); }
 
 private:
+    QHBoxLayout *upperLayout;
+    QVBoxLayout *mainLayout;
+
     QLabel *_label;
     QSpinBox *_spinBox;
     QPushButton *_okButton;

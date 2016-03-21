@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QLabel>
 #include <QPushButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class EndGameDialog : public QDialog
 {
@@ -15,6 +17,9 @@ public:
 
 private:
     void updateLabel();
+
+    QHBoxLayout *upperLayout;
+    QVBoxLayout *mainLayout;
 
     int _steps;
     QString _message;

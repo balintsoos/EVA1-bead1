@@ -1,6 +1,4 @@
 #include "endgamedialog.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 
 EndGameDialog::EndGameDialog(QString message, int steps, QWidget *parent) :
     _message(message), _steps(steps), QDialog(parent)
