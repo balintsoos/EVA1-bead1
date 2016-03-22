@@ -52,7 +52,7 @@ void TableWidget::clickOnField()
     bool isExist = false;
 
     QMutableVectorIterator<Coordinate> i(_queens);
-    while(i.hasNext())
+    while(i.hasNext() && !isExist)
     {
         Coordinate current = i.next();
         if(current.x() == coordinate.x() && current.y() == coordinate.y())
